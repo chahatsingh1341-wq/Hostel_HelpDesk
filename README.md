@@ -27,7 +27,7 @@ It is built to make hostel issue tracking faster, easier, and more organized.
 
 ## Screenshots
 <img width="300" height="400" alt="Screenshot 2026-08-18 202120" src="https://github.com/user-attachments/assets/c57a001d-80a0-4acf-b92d-233f14a910a3" />
-_Add project screenshots here if available._<img width="1802" height="908" alt="Screenshot 2026-08-18 202314" src="https://github.com/user-attachments/assets/66a83bde-30d7-4d9a-8212-add0f4cbde0d" />_
+<img width="1802" height="908" alt="Screenshot 2026-08-18 202314" src="https://github.com/user-attachments/assets/66a83bde-30d7-4d9a-8212-add0f4cbde0d" />_
 
 ## Installation
 
