@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ block_name }} - Hostel Helpdesk</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+<div class="dashboard-layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo-circle-small">
+        <i class="fa-solid fa-house"></i>
+      </div>
+      <div class="brand-text">Hostel Helpdesk</div>
+    </div>
+    <nav class="side-nav">
+      <a href="{{ url_for('student_dashboard') }}" class="side-link">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="{{ url_for('logout') }}" class="side-link">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="container">
+      <h1>{{ block_name }}</h1>
+      <p class="subtitle">Select your floor</p>
+
+      <div class="cards">
+        {% for floor in floors %}
+        <a href="{{ url_for('floor_page', block_name=block_name, floor=floor) }}" class="card">
+          <i class="fa-solid fa-layer-group"></i>
+          <h2>{{ floor }}</h2>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

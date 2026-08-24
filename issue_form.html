@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Issue - Hostel Helpdesk</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body class="login-page">
+  <main class="login-shell">
+    <section class="login-card">
+      <div class="logo-container">
+        <div class="logo-circle-final">
+          <i class="fa-solid fa-house house-icon"></i>
+          <div class="logo-text">HOSTEL<br>HELPDESK</div>
+        </div>
+      </div>
+
+      <h2>Submit Issue</h2>
+      <p class="subtitle">{{ block }} - {{ floor }} - {{ corridor }}</p>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, msg in messages %}
+            <div class="flash {{ category }}">{{ msg }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form method="POST">
+        <input type="hidden" name="block" value="{{ block }}">
+        <input type="hidden" name="floor" value="{{ floor }}">
+        <input type="hidden" name="corridor" value="{{ corridor }}">
+
+        {% if issue_type == 'Personal' %}
+        <label style="font-size:13px; font-weight:600; color:var(--text); margin-bottom:6px;">Room</label>
+        <select name="room" required style="width:100%; border:1px solid var(--line); background:var(--input); padding:12px 14px; border-radius:10px; outline:none; font-size:14px; color:var(--text);">
+          <option value="">Select Room</option>
+          {% for i in range(12) %}
+          <option value="Room {{ 101 + i }}">{{ 101 + i }}</option>
+          {% endfor %}
+        </select>
+
+        <label style="font-size:13px; font-weight:600; color:var(--text); margin-bottom:6px; margin-top:12px;">Issue Category</label>
+        <select name="issue_category" required style="width:100%; border:1px solid var(--line); background:var(--input); padding:12px 14px; border-radius:10px; outline:none; font-size:14px; color:var(--text);">
+          <option value="">Select Category</option>
+          <option value="Circuit Problem">Circuit Problem</option>
+          <option value="Fan Problem">Fan Problem</option>
+          <option value="Light Problem">Light Problem</option>
+        </select>
+        {% else %}
+        <input type="hidden" name="room" value="">
+        <label style="font-size:13px; font-weight:600; color:var(--text); margin-bottom:6px;">Issue Category</label>
+        <select name="issue_category" required style="width:100%; border:1px solid var(--line); background:var(--input); padding:12px 14px; border-radius:10px; outline:none; font-size:14px; color:var(--text);">
+          <option value="">Select Category</option>
+          <option value="Water Issue">Water Issue</option>
+          <option value="WiFi Issue">WiFi Issue</option>
+        </select>
+        {% endif %}
+
+        <input type="hidden" name="issue_type" value="{{ issue_type }}">
+        <button type="submit" style="margin-top:18px;">Submit Issue</button>
+      </form>
+
+      <a href="{{ url_for('student_dashboard') }}" style="margin-top:16px;">← Back to Dashboard</a>
+    </section>
+  </main>
+</body>
+</html>

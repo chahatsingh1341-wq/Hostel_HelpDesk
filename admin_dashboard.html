@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Hostel Helpdesk</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+<div class="dashboard-layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo-circle-small">
+        <i class="fa-solid fa-house"></i>
+      </div>
+      <div class="brand-text">Hostel Helpdesk</div>
+    </div>
+    <nav class="side-nav">
+      <a href="{{ url_for('admin_dashboard') }}" class="side-link active">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="{{ url_for('cleanup_old_resolved') }}" class="side-link">
+        <i class="fa-solid fa-trash-can"></i>
+        <span>Cleanup Old Resolved</span>
+      </a>
+      <a href="{{ url_for('logout') }}" class="side-link">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="container">
+      <h1>Admin Dashboard</h1>
+
+      <div class="table-section">
+        <h2>All Issues</h2>
+        <table>
+          <tr>
+            <th>ID</th><th>User</th><th>Block</th><th>Floor</th><th>Corridor</th><th>Room</th><th>Type</th><th>Category</th><th>Status</th><th>Update</th>
+          </tr>
+          {% for c in complaints %}
+          <tr>
+            <td>{{ c.id }}</td>
+            <td>{{ c.user_email }}</td>
+            <td>{{ c.block }}</td>
+            <td>{{ c.floor }}</td>
+            <td>{{ c.corridor }}</td>
+            <td>{{ c.room or '-' }}</td>
+            <td>{{ c.issue_type }}</td>
+            <td>{{ c.issue_category }}</td>
+            <td>{{ c.status }}</td>
+            <td>
+              <form method="POST" action="{{ url_for('admin_update', cid=c.id) }}" style="display:flex; gap:6px; align-items:center;">
+                <select name="status" required style="border:1px solid var(--line); background:var(--input); padding:8px 10px; border-radius:8px; outline:none; font-size:13px; color:var(--text);">
+                  <option value="Pending" {% if c.status=='Pending' %}selected{% endif %}>Pending</option>
+                  <option value="In Progress" {% if c.status=='In Progress' %}selected{% endif %}>In Progress</option>
+                  <option value="Resolved" {% if c.status=='Resolved' %}selected{% endif %}>Resolved</option>
+                </select>
+                <button type="submit" style="width:auto; padding:8px 12px; font-size:13px;">Update</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+      <div class="table-section">
+        <h2>Feedbacks</h2>
+        <table>
+          <tr><th>ID</th><th>User</th><th>Rating</th><th>Message</th><th>Date</th></tr>
+          {% for f in feedbacks %}
+          <tr>
+            <td>{{ f.id }}</td>
+            <td>{{ f.user_email }}</td>
+            <td>{{ f.rating }}</td>
+            <td>{{ f.message }}</td>
+            <td>{{ f.created_at }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

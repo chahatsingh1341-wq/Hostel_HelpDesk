@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Hostel Helpdesk</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body class="login-page">
+  <main class="login-shell">
+    <section class="login-card">
+      <div class="logo-container">
+        <div class="logo-circle-final">
+          <i class="fa-solid fa-house house-icon"></i>
+          <div class="logo-text">HOSTEL<br>HELPDESK</div>
+          <div class="tagline">Your Comfort, Our Priority</div>
+        </div>
+      </div>
+
+      <h2>Welcome Back</h2>
+      <p class="subtitle">Login to continue</p>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, msg in messages %}
+            <div class="flash {{ category }}">{{ msg }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form method="POST">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+        <div class="login-as-group">
+          <div class="radio-label">Login as</div>
+          <div class="radio-options">
+            <label class="radio-btn">
+              <input type="radio" name="user_type" value="student" checked>
+              <span class="radio-text">Student</span>
+            </label>
+            <label class="radio-btn">
+              <input type="radio" name="user_type" value="admin">
+              <span class="radio-text">Admin</span>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit">Login</button>
+      </form>
+
+      <div class="register-text">
+        Don't have an account? <a href="{{ url_for('student_register') }}">Register here</a>
+      </div>
+
+      <div class="footer-badges">
+        <div class="badge">
+          <i class="fa-solid fa-bolt badge-icon"></i>
+          <span class="badge-title">Fast</span>
+          <span class="badge-desc">Quick Response</span>
+        </div>
+        <div class="badge">
+          <i class="fa-solid fa-shield-halved badge-icon"></i>
+          <span class="badge-title">Secure</span>
+          <span class="badge-desc">Safe Data</span>
+        </div>
+        <div class="badge">
+          <i class="fa-solid fa-headset badge-icon"></i>
+          <span class="badge-title">Support</span>
+          <span class="badge-desc">24/7 Active</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
